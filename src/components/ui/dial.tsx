@@ -1,6 +1,6 @@
 'use client';
 
-import Skeleton from '@/components/skeleton';
+import Skeleton from '@/components/ui/skeleton';
 import { ArrowDownCircleIcon, ArrowUpCircleIcon } from '@heroicons/react/20/solid';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
