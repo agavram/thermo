@@ -1,24 +1,24 @@
 "use client";
 
+import Skeleton from "@/components/skeleton";
 import { ArrowDownCircleIcon, ArrowUpCircleIcon } from "@heroicons/react/20/solid";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
-import Skeleton from "./skeleton";
 
 const host = 'thermo-main.jfep7z3w9l.viam.cloud';
 
 // MEASURED VALUES:
-// 180 servo offset maps to -90 rotation @ 56 F°
-// 10 servo offset maps to 50 rotation @ 80 F°
+// 180 servo angle maps to -90° rotation for UI. @ 56 F°
+// 10 servo angle maps to 50° rotation for UI. 80 F°
 
-// Converts the servo angle to a rotation for the UI to display
-const offsetToRotation = (offset: number) => {
-  return (offset - 10) * (-90 - 50) / (180 - 10) + 50;
+// Converts the servo angle to a rotation in degrees for the UI to display
+const angleToRotation = (angle: number) => {
+  return (angle - 10) * (-90 - 50) / (180 - 10) + 50;
 };
 
 // Converts the servo angle to a temperature in °F
-const offsetToTemperature = (offset: number) => {
-  return (offset - 10) * (56 - 80) / (180 - 10) + 80;
+const angleToTemperature = (angle: number) => {
+  return (angle - 10) * (56 - 80) / (180 - 10) + 80;
 };
 
 export default function Dial({ apiKey, apiKeyId }: { apiKey: string, apiKeyId: string; }) {
@@ -45,17 +45,17 @@ export default function Dial({ apiKey, apiKeyId }: { apiKey: string, apiKeyId: s
     enabled: false,
   });
 
-  // Query to load the current offset of the servo
-  const { data: offset, isError: isDialError } = useQuery({
+  // Query to load the current angle of the servo
+  const { data: angle, isError: isDialError } = useQuery({
     queryKey: ['robot', 'position'], queryFn: async () => {
       return await thermoDial?.getPosition();
     }, enabled: !!thermoDial
   });
 
-  // Mutation to move the servo to a new offset
-  const dialOffset = useMutation({
-    mutationFn: async (offset: number) => {
-      await thermoDial?.move(Math.min(Math.max(10, offset), 180));
+  // Mutation to move the servo to a new angle
+  const dialAngle = useMutation({
+    mutationFn: async (angle: number) => {
+      await thermoDial?.move(Math.min(Math.max(10, angle), 180));
       queryClient.invalidateQueries({ queryKey: ['robot', 'position'] });
     }
   });
@@ -73,7 +73,7 @@ export default function Dial({ apiKey, apiKeyId }: { apiKey: string, apiKeyId: s
     );
   }
 
-  if (isLoading || offset === undefined) {
+  if (isLoading || angle === undefined) {
     return <Skeleton />;
   }
 
@@ -82,9 +82,9 @@ export default function Dial({ apiKey, apiKeyId }: { apiKey: string, apiKeyId: s
       {/* Thermostat dial visualization */}
       <svg className="bg-black bg-opacity-50" viewBox="0 0 520 750" fill="none" xmlns="http://www.w3.org/2000/svg">
         <text x="52%" y="15%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="4rem">
-          {Math.round(offsetToTemperature(offset))}°
+          {Math.round(angleToTemperature(angle))}°
         </text>
-        <g className="transition-[transform] duration-1000" transform={`rotate(${offsetToRotation(offset ?? 95)} 260 487)`}>
+        <g className="transition-[transform] duration-1000" transform={`rotate(${angleToRotation(angle ?? 95)} 260 487)`}>
           <DialPaths />
         </g>
         <rect x="1" y="1" width="518" height="748" rx="34" stroke="white" strokeWidth="2" />
@@ -93,10 +93,10 @@ export default function Dial({ apiKey, apiKeyId }: { apiKey: string, apiKeyId: s
 
       {/* Adjust temperature buttons */}
       <div className="flex flex-row gap-16 justify-center pt-4">
-        <button onClick={() => dialOffset.mutate(offset + 10)}>
+        <button onClick={() => dialAngle.mutate(angle + 10)}>
           <ArrowDownCircleIcon height={64} width={64} className="text-[#7EC8E3]/75"></ArrowDownCircleIcon>
         </button>
-        <button onClick={() => dialOffset.mutate(offset - 10)}>
+        <button onClick={() => dialAngle.mutate(angle - 10)}>
           <ArrowUpCircleIcon height={64} width={64} className="text-[#FF6961]/75"></ArrowUpCircleIcon>
         </button>
       </div>

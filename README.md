@@ -33,7 +33,7 @@ After measuring out the dimensions and doing some 3D modeling work, we have some
 These do usually take a few tries to get right as the printer doesn't quite adhere to the precise dimensions, but fortunately, only one failed attempt later, we have a perfect fit around the thermostat!
 
 <p align="center">
-  <img src="./images/IMG_3459.jpg" width="400">
+  <img src="./images/dial-gear.png" width="400">
 </p>
 
 ## Viam Integration
@@ -67,7 +67,7 @@ A few more hours of 3D modeling work later, and we have a simple yet functional 
 The following morning, with the 3D print complete and time ticking down, I placed the components inside the enclosure and mounted it beside my thermostat. (Gorilla double-sided tape was enough to easily adhere it.) As the gears interlinked together, I was ready to power on my robot and never manually adjust my thermostat again!
 
 <p align="center">
-  <img src="./images/IMG_3452.jpeg" width="400">
+  <img src="./images/assembled.png" width="400">
 </p>
 
 https://github.com/agavram/thermo/assets/17835438/45e27d12-bc98-4dfd-9537-5ba1e0d9ddbb
