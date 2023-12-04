@@ -25,7 +25,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex items-stretch min-h-screen flex-col p-6 max-w-screen-sm w-full">
+    <main className="flex mx-auto items-stretch min-h-screen flex-col p-6 max-w-screen-sm w-full">
       <header>
         <h1 className="text-5xl">thermo</h1>
         <hr className="my-2" />
@@ -75,7 +75,7 @@ export default function Home() {
           <div className="absolute bottom-4 right-4">
             <button
               className="bg-black outline p-2 rounded-md"
-              onClick={() => { deleteFromStorage(LOCALSTORAGE_API_KEY) }}>
+              onClick={() => deleteFromStorage(LOCALSTORAGE_API_KEY)}>
               Reset API Key
             </button>
           </div>

@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className={`${ibm.className} flex justify-center`}>{children}</body>
+      <body className={`${ibm.className}`}>{children}</body>
     </html>
   );
 }
