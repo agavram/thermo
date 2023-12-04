@@ -1,6 +1,6 @@
 export default function Skeleton() {
   return (
-    <div className="
+    <div className='
       aspect-[5/7]
       bg-black bg-opacity-50 p-2 rounded-lg border border-gray-700
       bg-gradient-to-r
@@ -16,9 +16,9 @@ export default function Skeleton() {
       overflow-hidden
       shadow-xl shadow-black/5
       before:border-t before:border-gray-50/20
-      flex flex-col gap-2">
-      <div className="rounded-lg bg-[#101416]/50 h-2/3 w-full"></div>
-      <div className="rounded-lg bg-[#101416]/75 h-1/3 w-6/12"></div>
+      flex flex-col gap-2'>
+      <div className='rounded-lg bg-[#101416]/50 h-2/3 w-full'></div>
+      <div className='rounded-lg bg-[#101416]/75 h-1/3 w-6/12'></div>
     </div>
   );
 }
