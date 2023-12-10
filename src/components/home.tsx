@@ -1,6 +1,7 @@
 'use client';
 
 import Dial from '@/components/ui/dial';
+import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import { deleteFromStorage, useLocalStorage } from '@rehooks/local-storage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -25,7 +26,7 @@ export default function Home() {
   };
 
   return (
-    <main className='flex mx-auto items-stretch min-h-screen flex-col p-6 max-w-screen-sm w-full'>
+    <main className='flex mx-auto items-stretch min-h-screen flex-col p-6 max-w-screen-sm w-full relative'>
       <header>
         <h1 className='text-5xl'>thermo</h1>
         <hr className='my-2' />
@@ -66,18 +67,18 @@ export default function Home() {
       {config && (
         <>
           <div className='pt-4 flex items-center justify-center'>
-            <div className='max-w-sm max-sm:max-w-xs w-full'>
+            <div className='max-w-sm w-full flex items-center flex-col max-h-[calc(100vh-250px)] min-h-[450px]'>
               <QueryClientProvider client={queryClient}>
                 <Dial apiKey={config.key} apiKeyId={config.id} />
               </QueryClientProvider>
             </div>
           </div>
-          <div className='absolute bottom-4 right-4'>
+          <div className='opacity-75 px-2 absolute top-2 right-2 flex flex-row items-center outline rounded-md p-1 bg-black gap-2'>
             <button
-              className='bg-black outline p-2 rounded-md'
               onClick={() => deleteFromStorage(LOCALSTORAGE_API_KEY)}>
-              Reset API Key
+              Reset Key
             </button>
+            <ArrowPathIcon className='h-4 w-4' strokeWidth={3} />
           </div>
         </>
       )}
