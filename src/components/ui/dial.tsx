@@ -1,7 +1,7 @@
 'use client';
 
 import Skeleton from '@/components/ui/skeleton';
-import { ArrowDownCircleIcon, ArrowUpCircleIcon } from '@heroicons/react/20/solid';
+import { ArrowDownCircleIcon, ArrowUpCircleIcon } from '@heroicons/react/24/outline';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
@@ -78,13 +78,14 @@ export default function Dial({ apiKey, apiKeyId }: { apiKey: string, apiKeyId: s
   }
 
   return (
-    <div>
+    <>
       {/* Thermostat dial visualization */}
       <svg className='bg-black bg-opacity-50' viewBox='0 0 520 750' fill='none' xmlns='http://www.w3.org/2000/svg'>
         <text x='52%' y='15%' dominantBaseline='middle' textAnchor='middle' fill='white' fontSize='4rem'>
           {Math.round(angleToTemperature(angle))}°
         </text>
-        <g className='transition-[transform] duration-1000' transform={`rotate(${angleToRotation(angle ?? 95)} 260 487)`}>
+        <g className='transition-[transform] duration-500 origin-center'
+          style={{ transform: `rotate(${angleToRotation(angle)}deg)`, transformBox: 'fill-box' }}>
           <DialPaths />
         </g>
         <rect x='1' y='1' width='518' height='748' rx='34' stroke='white' strokeWidth='2' />
@@ -94,13 +95,13 @@ export default function Dial({ apiKey, apiKeyId }: { apiKey: string, apiKeyId: s
       {/* Adjust temperature buttons */}
       <div className='flex flex-row gap-16 justify-center pt-4'>
         <button onClick={() => dialAngle.mutate(angle + 10)}>
-          <ArrowDownCircleIcon height={64} width={64} className='text-[#7EC8E3]/75'></ArrowDownCircleIcon>
+          <ArrowDownCircleIcon className='h-16 w-16' strokeWidth={0.5}></ArrowDownCircleIcon>
         </button>
         <button onClick={() => dialAngle.mutate(angle - 10)}>
-          <ArrowUpCircleIcon height={64} width={64} className='text-[#FF6961]/75'></ArrowUpCircleIcon>
+          <ArrowUpCircleIcon className='h-16 w-16' strokeWidth={0.5}></ArrowUpCircleIcon>
         </button>
       </div>
-    </div>
+    </>
   );
 }
 

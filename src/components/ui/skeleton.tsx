@@ -16,7 +16,7 @@ export default function Skeleton() {
       overflow-hidden
       shadow-xl shadow-black/5
       before:border-t before:border-gray-50/20
-      flex flex-col gap-2'>
+      flex flex-col gap-2 w-full h-full'>
       <div className='rounded-lg bg-[#101416]/50 h-2/3 w-full'></div>
       <div className='rounded-lg bg-[#101416]/75 h-1/3 w-6/12'></div>
     </div>
